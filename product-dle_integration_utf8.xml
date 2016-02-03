@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="dle_integration" active="1">
+	<title>DLE Integration</title>
+	<description>Интеграция с DataLife Engine</description>
+	<version>2.1.0</version>
+	<url>http://kaliostro.net</url>
+	<versioncheckurl />
+	<dependencies>
+		<dependency dependencytype="mysql" minversion="4.1" maxversion="" />
+		<dependency dependencytype="php" minversion="5.0.0" maxversion="" />
+	</dependencies>
+	<codes>
+	</codes>
+	<templates>
+	</templates>
+	<stylevardfns>
+	</stylevardfns>
+	<stylevars>
+	</stylevars>
+	<plugins>
+		<plugin active="1" executionorder="5">
+			<title>Add Settings</title>
+			<hookname>admin_options_print</hookname>
+			<phpcode><![CDATA[if (in_array($settingid, array('dle_fields', 'dle_groups')))
+{
+    include_once(DIR . '/includes/class_dle_integration.php');
+    $dle = DLEIntegration::getInstance($vbulletin);
+    if ($settingid == 'dle_fields')
+    {
+        $text = $dle->GetFieldsSettings($vbphrase, $setting);
+        print_label_row($description, $text);
+    }
+    else
+    {
+        $text = $dle->GetGroupsSettings($vbphrase, $setting);
+        print_label_row($description . $text['description'], $text['text']);
+    }
+
+    $handled = true;
+}]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>Add Settings Save</title>
+			<hookname>admin_options_processing</hookname>
+			<phpcode><![CDATA[if (in_array($oldsetting['varname'], array('dle_fields', 'dle_groups')))
+				{
+				    $settings["$oldsetting[varname]"] = serialize($settings["$oldsetting[varname]"]);
+				}]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>UpdateProfileAJAX</title>
+			<hookname>ajax_start</hookname>
+			<phpcode><![CDATA[if ($_POST['do'] == 'saveuserfield')
+{
+    include_once(DIR . '/includes/class_dle_integration.php');
+    $dle = DLEIntegration::getInstance($vbulletin);
+    $dle->UpdateProfileAJAX();
+}]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>ExternalAuthorization</title>
+			<hookname>global_setup_complete</hookname>
+			<phpcode><![CDATA[if (!empty($_GET['dleauth']))
+{
+    $data = intval(urldecode($_GET['dleauth']));
+    $hash = $_GET['hash'];
+    
+    if ($data && md5($vbulletin->config['MasterServer']['password'] . $data . $vbulletin->config['Database']['dbname']) == $hash)
+    {
+        include_once(DIR . '/includes/class_dle_integration.php');
+        $dle = DLEIntegration::getInstance($vbulletin);
+        $dle->ExternalAuthorization($data);
+    }
+    else
+    {
+        die('Hacking');
+    }
+} else if (!empty($_GET['dlelogout']))
+{
+    if ($vbulletin->userinfo['userid'])
+    {
+        define('EXTERNAL_LOGOUT', true);
+        require_once(DIR . '/includes/functions_login.php');
+    
+        process_logout();
+    }
+    $url = $vbulletin->options['homeurl']?$vbulletin->options['homeurl']:$_SERVER['HTTP_REFERER'];
+    
+    header("Location:" . $url);
+    echo "Вы были перенаправлены сюда <a href='$url'>" . $url . "</a>";
+}]]></phpcode>
+		</plugin>
+		<plugin active="0" executionorder="5">
+			<title>ClearThreadId</title>
+			<hookname>inlinemod_dodeletethread</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->ClearThreadId($threadarray);]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>Login</title>
+			<hookname>login_process</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->login();]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>CheckDLELogin</title>
+			<hookname>login_verify_failure_username</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$return_value = $dle->CheckLoginDLE($username, $password, $md5password, $cookieuser);]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>Logout</title>
+			<hookname>logout_process</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->logout();]]></phpcode>
+		</plugin>
+		<plugin active="0" executionorder="5">
+			<title>SetTopicTitle</title>
+			<hookname>newthread_form_complete</hookname>
+			<phpcode><![CDATA[$vbulletin->input->clean_array_gpc("r", array('news_id' => TYPE_UINT, 'news_title' => TYPE_STR));
+if ($vbulletin->GPC['news_id'])
+{
+    $human_verify .= "<input type='hidden' name='news_id' value='{$_GET['news_id']}' />";
+    
+    if ($vbulletin->GPC['news_title'])
+    {
+        $subject = urldecode($vbulletin->GPC['news_title']);
+    }
+}]]></phpcode>
+		</plugin>
+		<plugin active="0" executionorder="5">
+			<title>SetThreadId</title>
+			<hookname>newthread_post_complete</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->SetThreadId($newpost['threadid']);]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>EmptyFolderPM</title>
+			<hookname>private_emptyfolder</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->EmptyFolderPM();]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>NewPM</title>
+			<hookname>private_insertpm_complete</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->NewPM($pmdm);]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>ReadPackPM</title>
+			<hookname>private_managepm_read</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->ReadUnreadPackPM($messageids, 'yes');]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>DeletePM</title>
+			<hookname>private_managepm_start</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->DeletePM($messageids);]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>UnreadPackPM</title>
+			<hookname>private_managepm_unread</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->ReadUnreadPackPM($messageids, 'no');]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>ReadPM</title>
+			<hookname>private_showpm_start</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->ReadPM();]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>UpdateDLEAvatar</title>
+			<hookname>profile_updateavatar_complete</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->UpdateDLEAvatar();]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>ChangePasswordEmail</title>
+			<hookname>profile_updatepassword_complete</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->ChangePasswordEmail();]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>UpdateProfile</title>
+			<hookname>profile_updateprofile</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->UpdateProfile();]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>UpdateSignature</title>
+			<hookname>profile_updatesignature_complete</hookname>
+			<phpcode><![CDATA[if (!$redirectsig)
+{
+    include_once(DIR . '/includes/class_dle_integration.php');
+    $dle = DLEIntegration::getInstance($vbulletin);
+    $dle->UpdateSignature($userinfo_sigpic, $signature);
+}]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>CreateAccount</title>
+			<hookname>register_addmember_complete</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->CreateAccount();]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>ChangePass</title>
+			<hookname>reset_password</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->ChangePass($userinfo['username'], $newpassword);]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="5">
+			<title>changeUserGroup</title>
+			<hookname>useradmin_update_save</hookname>
+			<phpcode><![CDATA[include_once(DIR . '/includes/class_dle_integration.php');
+$dle = DLEIntegration::getInstance($vbulletin);
+$dle->changeUserGroup();]]></phpcode>
+		</plugin>
+	</plugins>
+	<phrases>
+		<phrasetype name="Основные настройки" fieldname="vbsettings">
+			<phrase name="setting_dle_change_pass_email_desc" date="1268530730" username="admin" version="2.0.0"><![CDATA[При изменении пароля или электронного адреса соответственные изменения будут проходить и в DataLife Engine]]></phrase>
+			<phrase name="setting_dle_change_pass_email_title" date="1268530730" username="admin" version="2.0.0"><![CDATA[Включить изменение пароля и электронного адреса]]></phrase>
+			<phrase name="setting_dle_charset_desc" date="1268481996" username="admin" version="2.0.0"><![CDATA[Кодировка страниц сайта, устанавливается в админки сайта]]></phrase>
+			<phrase name="setting_dle_charset_title" date="1268481996" username="admin" version="2.0.0"><![CDATA[Кодировка страниц сайта]]></phrase>
+			<phrase name="setting_dle_discussion_desc" date="1281012077" username="admin" version="2.0.0"><![CDATA[Включает работу нового вида обсуждения статей, где сам пользователь создаёт тему обсуждения и id форума прописывается в БД сайта для новости.]]></phrase>
+			<phrase name="setting_dle_discussion_title" date="1281012077" username="admin" version="2.0.0"><![CDATA[Включить обсуждение статей]]></phrase>
+			<phrase name="setting_dle_fields_desc" date="1283715804" username="admin" version="2.0.0"><![CDATA[Укажите в таблице напротив полей форума имена полей сайта(латинские буквы).<br/>
+Следующие поля зарезервированы для использования:<br/>
+<b>info</b> - О себе<br/>
+<b>land</b> - Место жительства<br/>
+<b>fullname</b> - Ваше Имя<br/>
+Используйте их для заполнения стандартных полей ДЛЕ]]></phrase>
+			<phrase name="setting_dle_fields_title" date="1283715804" username="admin" version="2.0.0"><![CDATA[Приведите в соответствие поля сайта и форума]]></phrase>
+			<phrase name="setting_dle_groups_desc" date="1324303925" username="admin" version="2.1.0"><![CDATA[Укажите в таблице напротив групп форума ID групп сайта.<br />
+Группы пользователей в ДЛЕ:<br />]]></phrase>
+			<phrase name="setting_dle_groups_title" date="1324303925" username="admin" version="2.1.0"><![CDATA[Соответствие групп пользователей]]></phrase>
+			<phrase name="setting_dle_hash_desc" date="1268515806" username="admin" version="2.0.0"><![CDATA[Если 'Да', каждая успешная авторизация пользователя на сайте будет сбрасывать его ключ авторизации. Это сделает невозможным войти под одним именем пользователя более, чем с одного компьютера.
+Установить такое значение как и в настройках ДЛЕ]]></phrase>
+			<phrase name="setting_dle_hash_title" date="1268515806" username="admin" version="2.0.0"><![CDATA[Сбрасывать ключ авторизации при каждом входе?]]></phrase>
+			<phrase name="setting_dle_login_create_account_desc" date="1281287828" username="admin" version="2.0.0"><![CDATA[При входе на форум пользователя который не имеет на сайте аккаунта он будет создаваться по данным из форума]]></phrase>
+			<phrase name="setting_dle_login_create_account_title" date="1281287828" username="admin" version="2.0.0"><![CDATA[Регистрировать пользователя на сайте при входе на форум]]></phrase>
+			<phrase name="setting_dle_login_create_vb_account_desc" date="1281287837" username="admin" version="2.0.0"><![CDATA[При входе на форум пользователя который не имеет на нем аккаунта он будет создаваться по данным из DLE, если там будет найден данный пользователь]]></phrase>
+			<phrase name="setting_dle_login_create_vb_account_title" date="1281287837" username="admin" version="2.0.0"><![CDATA[Регистрировать пользоваетелей на форуме из DLE]]></phrase>
+			<phrase name="setting_dle_login_desc" date="1268431873" username="admin" version="2.0.0"><![CDATA[Общий вход будет работать если форум и ДЛЕ находятся на одном основном домене]]></phrase>
+			<phrase name="setting_dle_login_title" date="1268431873" username="admin" version="2.0.0"><![CDATA[Включить общий вход]]></phrase>
+			<phrase name="setting_dle_logout_desc" date="1268515132" username="admin" version="2.0.0"><![CDATA[Общий вход будет работать если форум и ДЛЕ находятся на одном основном домене]]></phrase>
+			<phrase name="setting_dle_logout_title" date="1268515132" username="admin" version="2.0.0"><![CDATA[Включить общий выход]]></phrase>
+			<phrase name="setting_dle_lostpass_desc" date="1268535250" username="admin" version="2.0.0"><![CDATA[При восстановлении пользователем пароля я на форуме, он автоматически меняется и на сайте]]></phrase>
+			<phrase name="setting_dle_lostpass_title" date="1268535250" username="admin" version="2.0.0"><![CDATA[Включить восстановление пароля]]></phrase>
+			<phrase name="setting_dle_onoff_desc" date="1268431739" username="admin" version="2.0.0"><![CDATA[Включает/выключает полностью работу интеграции, почти тоже самое что выключить продукт полностью]]></phrase>
+			<phrase name="setting_dle_onoff_title" date="1268431739" username="admin" version="2.0.0"><![CDATA[Включить интеграцию]]></phrase>
+			<phrase name="setting_dle_pm_desc" date="1268572581" username="admin" version="2.0.0"><![CDATA[При отправки сообщения пользователю он его получит и на форуме и на сайте.]]></phrase>
+			<phrase name="setting_dle_pm_title" date="1268572581" username="admin" version="2.0.0"><![CDATA[Включить общие персональные сообщения]]></phrase>
+			<phrase name="setting_dle_profile_desc" date="1268533354" username="admin" version="2.0.0"><![CDATA[При изменении полей на форуме в DataLife Engine поля будут также обновлены
+Поля: Номер ICQ, Местоположение, Биография]]></phrase>
+			<phrase name="setting_dle_profile_title" date="1268533354" username="admin" version="2.0.0"><![CDATA[Включить общий профиль]]></phrase>
+			<phrase name="setting_dle_reg_group_desc" date="1268522433" username="admin" version="2.0.0"><![CDATA[ID группы пользователей в DLE в которую помещаются пользователи при регистрации.]]></phrase>
+			<phrase name="setting_dle_reg_group_title" date="1268522433" username="admin" version="2.0.0"><![CDATA[ID группы пользователей]]></phrase>
+			<phrase name="setting_dle_register_desc" date="1268519245" username="admin" version="2.0.0"><![CDATA[Включает автоматическую регистрацию пользователя в DataLife Engine при регистрации его на форуме]]></phrase>
+			<phrase name="setting_dle_register_title" date="1268519245" username="admin" version="2.0.0"><![CDATA[Включить регистрацию]]></phrase>
+			<phrase name="settinggroup_dle" date="1268431086" username="admin" version="2.0.0"><![CDATA[Интеграция с DataLife Engine]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+		<settinggroup name="dle" displayorder="600">
+			<setting varname="dle_onoff" displayorder="10">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_login" displayorder="20">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_hash" displayorder="21">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>0</defaultvalue>
+			</setting>
+			<setting varname="dle_logout" displayorder="22">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_register" displayorder="23">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_reg_group" displayorder="24">
+				<datatype>free</datatype>
+				<validationcode><![CDATA[return ((int)$data >= 3);]]></validationcode>
+				<defaultvalue>4</defaultvalue>
+			</setting>
+			<setting varname="dle_change_pass_email" displayorder="25">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_profile" displayorder="26">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_lostpass" displayorder="27">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_pm" displayorder="28">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_discussion" displayorder="29">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>1</defaultvalue>
+			</setting>
+			<setting varname="dle_charset" displayorder="30">
+				<datatype>free</datatype>
+				<defaultvalue>windows-1251</defaultvalue>
+			</setting>
+			<setting varname="dle_login_create_account" displayorder="40">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>0</defaultvalue>
+			</setting>
+			<setting varname="dle_login_create_vb_account" displayorder="50">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>0</defaultvalue>
+			</setting>
+			<setting varname="dle_fields" displayorder="60">
+				<datatype>free</datatype>
+				<optioncode>label</optioncode>
+				<defaultvalue><![CDATA[a:9:{s:8:"homepage";s:0:"";s:3:"aim";s:0:"";s:3:"msn";s:0:"";s:5:"skype";s:0:"";s:5:"yahoo";s:0:"";s:6:"field1";s:0:"";s:6:"field2";s:4:"land";s:6:"field3";s:4:"info";s:6:"field4";s:0:"";}]]></defaultvalue>
+			</setting>
+			<setting varname="dle_groups" displayorder="70">
+				<datatype>free</datatype>
+				<optioncode>label</optioncode>
+			</setting>
+		</settinggroup>
+	</options>
+	<helptopics>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+</product>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>Установка &raquo; DLE &raquo; engine/modules/profile.php &raquo; KALIOSTRO.NET</title>
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body><script language="javascript">
+		if ((window.name != "content") && (navigator.userAgent.indexOf("Opera") <= -1) )
+		document.write("<center><a href='../../index.html?page=install/DLE/profile.php.html'>show framing</a></center>")
+		</script>
+<div id='wraper'>
+<div class="header_background">
+	<div class="header_div">
+		<div class="module_name">
+			DLE + vBulletin <span>v2.2.0</span>
+		</div>
+        <div class="navagation">
+        	Установка &raquo; DLE &raquo; engine/modules/profile.php
+        </div>
+	</div>
+</div>
+<div class="content">
+<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # --><div class="action_div">		<b>1.</b> Изменяем профель на форме, при изменении в ДЛЕ<br/>
+		<span class="action_title">Найти</span> (234-243):<br />
+		<textarea cols="auto" rows="12" class="find" readonly="readonly">        if( strlen( $password1 ) > 0 ) {
+            
+            $password1 = md5( md5( $password1 ) );
+            $sql_user = "UPDATE " . USERPREFIX . "_users set fullname='$fullname', land='$land', icq='$icq', email='$email', info='$info', signature='$signature', password='$password1', allow_mail='$allow_mail', xfields='$filecontents', allowed_ip='$allowed_ip' where name='$user'";
+        
+        } else {
+            
+            $sql_user = "UPDATE " . USERPREFIX . "_users set fullname='$fullname', land='$land', icq='$icq', email='$email', info='$info', signature='$signature', allow_mail='$allow_mail', xfields='$filecontents', allowed_ip='$allowed_ip' where name='$user'";
+        
+        }</textarea>		
+		<span class="action_title">До вставить</span> :<br />
+		<textarea cols="auto" rows="3" class="addbefore" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+$vb->UpdateProfile($user, $email, $password1, $icq, $filecontents);
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div>
+</div>
+</div>
+<div class="footer">
+<hr />
+Copyright &copy; 2007 - 2011 <a style="color:green" href="http://www.kaliostro.net/">kaliostro</a> . All rights reserved.<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # -->
+</div>
+</body>
+</html>

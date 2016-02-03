@@ -1,0 +1,194 @@
+<HTML>
+ <HEAD>
+  <META name="GENERATOR" content="htm2chm 3.0.9.3">
+  <!-- Sitemap 1.0 -->
+ </HEAD>
+<BODY>
+ <OBJECT type="text/site properties">
+  <PARAM name="Window Styles" value="0x800027">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="DLE + vBulletin">
+  <PARAM name="Local" value="index.html">
+  <PARAM name="ImageNumber" value="37">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="&Oacute;&ntilde;&ograve;&agrave;&iacute;&icirc;&acirc;&ecirc;&agrave;">
+  <PARAM name="Local" value="install/index.html">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="DLE">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value=".htaccess">
+  <PARAM name="Local" value="install/DLE/.htaccess.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="index.php">
+  <PARAM name="Local" value="install/DLE/index.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/inc/editusers.php">
+  <PARAM name="Local" value="install/DLE/editusers.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/inc/options.php">
+  <PARAM name="Local" value="install/DLE/options.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/inc/mass_user_actions.php">
+  <PARAM name="Local" value="install/DLE/mass_user_actions.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/lostpassword.php">
+  <PARAM name="Local" value="install/DLE/lostpassword.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/pm.php">
+  <PARAM name="Local" value="install/DLE/pm.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/profile.php">
+  <PARAM name="Local" value="install/DLE/profile.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/register.php">
+  <PARAM name="Local" value="install/DLE/register.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/show.short.php">
+  <PARAM name="Local" value="install/DLE/show.short.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/show.full.php">
+  <PARAM name="Local" value="install/DLE/show.full.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/sitelogin.php">
+  <PARAM name="Local" value="install/DLE/sitelogin.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="template/{&acirc;&agrave;&oslash; &oslash;&agrave;&aacute;&euml;&icirc;&iacute;}/fullstory.tpl">
+  <PARAM name="Local" value="install/DLE/fullstory.tpl.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="template/{&acirc;&agrave;&oslash; &oslash;&agrave;&aacute;&euml;&icirc;&iacute;}/main.tpl">
+  <PARAM name="Local" value="install/DLE/main.tpl.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="template/{&acirc;&agrave;&oslash; &oslash;&agrave;&aacute;&euml;&icirc;&iacute;}/shortstory.tpl">
+  <PARAM name="Local" value="install/DLE/shortstory.tpl.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="&Auml;&euml;&yuml; DLE &auml;&icirc; &acirc;&aring;&eth;&ntilde;&egrave;&egrave; 8.0">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="admin.php">
+  <PARAM name="Local" value="install/DLE/before_8.0/admin.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/inc/options.php">
+  <PARAM name="Local" value="install/DLE/before_8.0/options.php.html">
+ </OBJECT>
+</UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="&Auml;&euml;&yuml; DLE &acirc;&aring;&eth;&ntilde;&egrave;&egrave; 8.0">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="admin.php">
+  <PARAM name="Local" value="install/DLE/after_8.0/admin.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/inc/options.php">
+  <PARAM name="Local" value="install/DLE/after_8.0/options.php.html">
+ </OBJECT>
+</UL>
+</UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="vBulletin">
+  <PARAM name="Local" value="install/vBulletin.html">
+ </OBJECT>
+</UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="&Iacute;&agrave;&ntilde;&ograve;&eth;&icirc;&eacute;&ecirc;&agrave;">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="vBulletin">
+  <PARAM name="Local" value="settings/vBulletin.html">
+ </OBJECT>
+</UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="&Icirc;&aacute;&iacute;&icirc;&acirc;&euml;&aring;&iacute;&egrave;&aring;">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="1.5.0">
+  <PARAM name="Local" value="update/1.5.0.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="1.5.5">
+  <PARAM name="Local" value="update/1.5.5.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="1.6.0">
+  <PARAM name="Local" value="update/1.6.0.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="2.0.0">
+  <PARAM name="Local" value="update/2.0.0.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="2.1.0">
+  <PARAM name="Local" value="update/2.1.0/index.html">
+ </OBJECT>
+<UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/inc/editusers.php">
+  <PARAM name="Local" value="update/2.1.0/editusers.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/inc/options.php">
+  <PARAM name="Local" value="update/2.1.0/options.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/profile.php">
+  <PARAM name="Local" value="update/2.1.0/profile.php.html">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="engine/modules/register.php">
+  <PARAM name="Local" value="update/2.1.0/register.php.html">
+ </OBJECT>
+</UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="2.2.0">
+  <PARAM name="Local" value="update/2.2.0.html">
+ </OBJECT>
+</UL>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="ChangeLog">
+  <PARAM name="Local" value="changelog.html">
+  <PARAM name="ImageNumber" value="17">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="FAQ">
+  <PARAM name="Local" value="FAQ/FAQ.html">
+  <PARAM name="ImageNumber" value="9">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="&Iuml;&aring;&eth;&aring;&iacute;&icirc;&ntilde; &iuml;&icirc;&euml;&uuml;&ccedil;&icirc;&acirc;&agrave;&ograve;&aring;&euml;&aring;&eacute;">
+  <PARAM name="Local" value="convert.html">
+  <PARAM name="ImageNumber" value="11">
+ </OBJECT>
+ <LI><OBJECT type="text/sitemap">
+  <PARAM name="Name" value="&Ecirc;&icirc;&iacute;&ograve;&agrave;&ecirc;&ograve;&ucirc;">
+  <PARAM name="Local" value="contact.html">
+  <PARAM name="ImageNumber" value="13">
+ </OBJECT>
+</BODY>
+</HTML>

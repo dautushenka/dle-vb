@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>Установка &raquo; DLE &raquo; engine/inc/editusers.php &raquo; KALIOSTRO.NET</title>
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body><script language="javascript">
+		if ((window.name != "content") && (navigator.userAgent.indexOf("Opera") <= -1) )
+		document.write("<center><a href='../../index.html?page=install/DLE/editusers.php.html'>show framing</a></center>")
+		</script>
+<div id='wraper'>
+<div class="header_background">
+	<div class="header_div">
+		<div class="module_name">
+			DLE + vBulletin <span>v2.2.0</span>
+		</div>
+        <div class="navagation">
+        	Установка &raquo; DLE &raquo; engine/inc/editusers.php
+        </div>
+	</div>
+</div>
+<div class="content">
+<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # --><div class="action_div">		<b>1.</b> Подключаем файл для изменений на форуме<br/>
+		<span class="action_title">Найти</span> (18-21):<br />
+		<textarea cols="auto" rows="4" class="find" readonly="readonly">if(!defined('DATALIFEENGINE'))
+{
+  die("Hacking attempt!");
+}</textarea>		
+		<span class="action_title">Ниже добавить</span> :<br />
+		<textarea cols="auto" rows="4" class="add" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+require_once(ENGINE_DIR.'/modules/dle_vs_vb.php');
+$vb = new vBIntegration($db);
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div><div class="action_div">		<b>2.</b> Добавляем пользователя на форум, при добавлении через админку ДЛЕ<br/>
+		<span class="action_title">Найти</span> (653):<br />
+		<textarea cols="auto" rows="2" class="find" readonly="readonly">$db->query( "INSERT INTO " . USERPREFIX . "_users (name, password, email, user_group, reg_date, lastdate, info, signature, favorites, xfields) values ('$regusername', '$regpassword', '$regemail', '$reglevel', '$add_time', '$add_time','','','','')" );</textarea>		
+		<span class="action_title">Ниже добавить</span> :<br />
+		<textarea cols="auto" rows="4" class="add" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+$vb->CreateAccount($regusername, md5( $_POST['regpassword'] ), $regemail, $add_time, true);
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div><div class="action_div">		<b>3.</b> Изменение профиля на форуме<br/>
+		<span class="action_title">Найти</span> (1188):<br />
+		<textarea cols="auto" rows="2" class="find" readonly="readonly">$filecontents = implode("||", $filecontents);
+} else $filecontents = ''; </textarea>		
+		<span class="action_title">Ниже добавить</span> :<br />
+		<textarea cols="auto" rows="8" class="add" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+$vb->UpdateProfile($id, $editmail, $_POST['editpass'], $editicq, $filecontents, true);
+if( trim( $editlogin ) != "" )
+{
+    $vb->ChangeUserName($id, $editlogin);
+}
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div><div class="action_div">		<b>4.</b> удаление пользователя с форума<br/>
+		<span class="action_title">Найти</span> (1190):<br />
+		<textarea cols="auto" rows="1" class="find" readonly="readonly">	$db->query("delete FROM " . USERPREFIX . "_pm WHERE user='$id'");</textarea>		
+		<span class="action_title">Ниже добавить</span> :<br />
+		<textarea cols="auto" rows="3" class="add" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+$vb->DeleteUser($row['name']); 
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div>
+</div>
+</div>
+<div class="footer">
+<hr />
+Copyright &copy; 2007 - 2011 <a style="color:green" href="http://www.kaliostro.net/">kaliostro</a> . All rights reserved.<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # -->
+</div>
+</body>
+</html>

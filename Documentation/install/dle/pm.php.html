@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>Установка &raquo; DLE &raquo; engine/modules/pm.php &raquo; KALIOSTRO.NET</title>
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body><script language="javascript">
+		if ((window.name != "content") && (navigator.userAgent.indexOf("Opera") <= -1) )
+		document.write("<center><a href='../../index.html?page=install/DLE/pm.php.html'>show framing</a></center>")
+		</script>
+<div id='wraper'>
+<div class="header_background">
+	<div class="header_div">
+		<div class="module_name">
+			DLE + vBulletin <span>v2.2.0</span>
+		</div>
+        <div class="navagation">
+        	Установка &raquo; DLE &raquo; engine/modules/pm.php
+        </div>
+	</div>
+</div>
+<div class="content">
+<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # --><div class="action_div">		<b>1.</b> Добюавляем личное сообщение на форум<br/>
+		<span class="action_title">Найти</span> (119):<br />
+		<textarea cols="auto" rows="2" class="find" readonly="readonly">$db->query("UPDATE " . USERPREFIX . "_users set pm_all=pm_all+1, pm_unread=pm_unread+1  where user_id='$row[user_id]'");</textarea>		
+		<span class="action_title">Ниже добавить</span> :<br />
+		<textarea cols="auto" rows="4" class="add" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+$vb->NewPM($member_id['name'], $name, $subj, $_POST['comments'], $time, intval($_REQUEST['outboxcopy']));
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div><div class="action_div">		<b>2.</b> Удаляем сообщения с форума (ВНИМАНИЕ изменить в 2-ух местах)<br/>
+		<span class="action_title">Найти</span> (188 и 209):<br />
+		<textarea cols="auto" rows="2" class="find" readonly="readonly">if (($row['user'] == $member_id['user_id'] AND $row['folder'] == "inbox") OR ($row['user_from'] == $member_id['name'] AND $row['folder'] == "outbox")) {</textarea>		
+		<span class="action_title">Ниже добавить</span> :<br />
+		<textarea cols="auto" rows="3" class="add" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+$vb->DeletePM($member_id['name'], $row['id']);
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div><div class="action_div">		<b>3.</b> Помечаем сообщение как прочитанное<br/>
+		<span class="action_title">Найти</span> (255):<br />
+		<textarea cols="auto" rows="2" class="find" readonly="readonly">		$db->query("UPDATE " . USERPREFIX . "_pm set pm_read='yes'  where id='$row[id]'");</textarea>		
+		<span class="action_title">Ниже добавить</span> :<br />
+		<textarea cols="auto" rows="3" class="add" readonly="readonly">/* ----------- DLE + vBulletin v2.2.0 ----------- */
+$vb->ReadPM($member_id['name'], $row);
+/* ----------- DLE + vBulletin v2.2.0 ----------- */</textarea></div>
+</div>
+</div>
+<div class="footer">
+<hr />
+Copyright &copy; 2007 - 2011 <a style="color:green" href="http://www.kaliostro.net/">kaliostro</a> . All rights reserved.<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # -->
+</div>
+</body>
+</html>

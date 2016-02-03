@@ -1,0 +1,194 @@
+body, html
+{
+	margin:0px;
+	padding:0px;
+	font-size:14px;
+	font-family:Tahoma, Geneva, sans-serif;
+	text-align:justify;
+	height:100%;
+}
+
+a, a:visit
+{
+    text-decoration: none;
+    color: #00A9FB;
+    font-weight:700;
+}
+a:hover
+{
+    text-decoration:underline;
+    color: #0072A8;
+}
+
+.header_background
+{
+	background-image:url(../image/header_spacer.gif); 
+	background-repeat:repeat-x;
+}
+
+.header_div
+{
+	background-image:url(../image/header.gif);
+	background-repeat:no-repeat;
+	height:96px;
+}
+.module_name
+{
+	padding-left:300px;
+	text-align:right;
+	font-size:22px;
+	padding-right:15px;
+	padding-top:10px;
+	vertical-align:top;
+}
+.module_name span
+{
+	font-size:12px;
+	color: #333;
+}
+.navagation
+{
+	padding-left:110px;
+	vertical-align:bottom;
+	margin-top:30px;
+}
+
+.content
+{
+	padding:15px;
+	padding-bottom:50px;
+}
+.action_div
+{
+	padding-top:25px;
+}
+.settings
+{
+	border:1px #000 dashed;
+	padding:3px;
+	margin:5px;
+}
+textarea
+{
+	border:1px dashed;
+	margin:5px;
+	padding:3px;
+	overflow:auto;
+	width:98%;
+	max-height:200px;
+	min-height:25px;
+	font-family:"Courier New", Courier, monospace;
+	scrollbar-track-color: white;
+	scrollbar-shadow-color:#EEE;
+	scrollbar-face-color: #EEE;
+}
+.del
+{
+	background-color: #EAEAEA;
+}
+.replace
+{
+	background-color: #B7FFC6;
+}
+.find
+{
+	background-color:#FFC;
+}
+.add
+{
+	background-color: #D9FFFF;
+}
+.addbefore
+{
+	background-color:#E7D2BE;
+}
+.template_add
+{
+	background-color: #FFF4F4;
+}
+table.usinglink
+{
+	border:0px;
+}
+table.usinglink td
+{
+	padding:5px;
+	border:1px solid #000;
+}
+table.settings
+{
+	border:1px solid black;
+}
+tr.setting_head td
+{
+	text-align:center;
+	font-weight:bold;
+}
+table.settings td
+{
+	border:1px solid black;
+	padding:3px;
+}
+td.setting
+{
+	text-align:left;
+}
+td.sample
+{
+	text-align:center;
+}
+td.format
+{
+	text-align:center;
+}
+tr.even
+{
+	background-color: #ECFFFE;
+}
+img
+{
+	border:0px;
+}
+.action_title
+{
+	font-weight:6575;
+}
+#wraper
+{
+	min-height:100%;
+}
+.footer
+{
+	height:30px;
+	margin-top:-30px;
+	text-align:center;
+	font-size:80%;
+	background-color:#E9E9E9;
+}
+
+.FAQ_question
+{
+	font-size: 100%;
+	padding: 4px;
+	
+	font-weight:700;
+	text-decoration: none;
+    
+}
+
+a.FAQ_open_question
+{
+    font-size: 110%;
+    margin: 15px 0px 7px 7px;
+    font-weight:700;
+    text-decoration: none;
+    color: red;
+}
+
+.FAQ_answer
+{
+	background-color: #F7FBDF;
+	margin: 5px 0px 15px 15px;
+	padding: 7px;
+}
+

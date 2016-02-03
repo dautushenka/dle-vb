@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>FAQ &raquo; KALIOSTRO.NET</title>
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body><script language="javascript">
+		if ((window.name != "content") && (navigator.userAgent.indexOf("Opera") <= -1) )
+		document.write("<center><a href='../index.html?page=FAQ/FAQ.html'>show framing</a></center>")
+		</script>
+<div id='wraper'>
+<div class="header_background">
+	<div class="header_div">
+		<div class="module_name">
+			DLE + vBulletin <span>v2.2.0</span>
+		</div>
+        <div class="navagation">
+        	FAQ
+        </div>
+	</div>
+</div>
+<div class="content">
+<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # --><script type="text/javascript">
+var cur_question = 0;
+function ShowAnswer(question_num, a)
+{
+    if (cur_question == question_num)
+    {
+        //hide
+        document.getElementById('answer' + question_num).style.display = 'none';
+        a.className = '';
+        cur_question = 0;
+    }
+    else
+    {
+        if (cur_question)
+        {
+            document.getElementById('answer' + cur_question).style.display = 'none';
+            document.getElementById('question' + cur_question).className = '';
+        }
+        document.getElementById('answer' + question_num).style.display = 'block';
+        a.className = 'FAQ_open_question';
+        //show new
+        cur_question = question_num;
+    }
+}
+</script><div class='FAQ_question'><a id='question1' href='#' OnClick='ShowAnswer(1, this);return false;' >1. После установки на главной вылазит ошибка "Fatal error: Unable to read..."</a></div><div id='answer1' style='display:none' class='FAQ_answer'>Перезалейте файлы на сервер в бинарном или двоичном режиме. Режим передачи данных настраивается в вашем ФТП клиенте<br /><br ><b>Ссылки:</b><br /><a href='http://forum.kaliostro.net/showthread.php?t=339' target='_blank' >http://forum.kaliostro.net/showthread.php?t=339</a><br/ ><a href='http://forum.kaliostro.net/showthread.php?t=450' target='_blank' >http://forum.kaliostro.net/showthread.php?t=450</a><br/ ></div><div class='FAQ_question'><a id='question2' href='#' OnClick='ShowAnswer(2, this);return false;' >2. После установки на главной вылазит ошибка "Fatal error:  Call to a member function Login() on a non-object in..."</a></div><div id='answer2' style='display:none' class='FAQ_answer'>Проверте первое изменение в файле sitelogin.php</div><div class='FAQ_question'><a id='question3' href='#' OnClick='ShowAnswer(3, this);return false;' >3. Не появляется ссылка на обсуждение или после перехода не перекидывает на форум</a></div><div id='answer3' style='display:none' class='FAQ_answer'>1. Зайдите в настройки интеграции и убедитесь что ссылка на форум включена и что для данных категорий новостей назначены форумы<br />
+2. Проверьте изменения в файлах и шаблонах</div><div class='FAQ_question'><a id='question4' href='#' OnClick='ShowAnswer(4, this);return false;' >4. После перехода по ссылки обсуждения вас кидает на страницу "    По данному критерию новости не найдены, либо у вас нет доступа для просмотра этих новостей"</a></div><div id='answer4' style='display:none' class='FAQ_answer'>Проверте изменения в файле .htaccess</div><div class='FAQ_question'><a id='question5' href='#' OnClick='ShowAnswer(5, this);return false;' >5. Нету общей авторизации.</a></div><div id='answer5' style='display:none' class='FAQ_answer'>1. Если сайт и форум расположены на разных доменах 2-ого уровня, общая авторизация не будет работать<br />
+2. Проверте изменения в файле /engine/modules/sitelogin.php<br />
+3. Проверте настройки интеграции в админке<br />
+4. Проверте правильно ли проведены <a href="/settings/vbulletin.html">настройки форума</a> после внесения изменений очистите кеш в ДЛЕ</div>
+</div>
+</div>
+<div class="footer">
+<hr />
+Copyright &copy; 2007 - 2011 <a style="color:green" href="http://www.kaliostro.net/">kaliostro</a> . All rights reserved.<!-- Copyright (c) 2007 - 2011 www.kaliostro.net. All rights reserved. # -->
+</div>
+</body>
+</html>
