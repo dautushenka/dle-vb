@@ -244,27 +244,7 @@ TEXT
 	
 	private function CheckLicence($licence)
 	{
-			if (!preg_match("#" . $licence . "#i", $_SERVER['HTTP_HOST']) && 
-			    !preg_match('#localhost#', $_SERVER['HTTP_HOST']) &&
-                strpos($_SERVER['HTTP_HOST'], $_SERVER['SERVER_ADDR']) === false
-			     )
-			{
-				if ($GLOBALS['config']['version_id'] < 6.3)
-				{
-					require_once ENGINE_DIR.'/inc/mail.class.php';
-				}
-				else
-					require_once ENGINE_DIR.'/classes/mail.class.php';
-					
-				$mail = new dle_mail ($GLOBALS['config']);
-				
-				$text  = "Лиц домен:" . $licence . "\n";
-				$text .= "Текущей домен: " . $_SERVER['HTTP_HOST'];
-				
-				$mail->send ("support@kaliostro.net", "Нарушение лицензии", $text);
-				
-				$this->FatalError("Вы используете не лицензионную версию модуля \"$this->module_name\".<br/>За информацией обращайтесь на форум <a href=\"http://forum.kaliostro.net/\" >http://forum.kaliostro.net/</a> или ICQ: 415-74-19");
-			}
+		
 	}
 	
 	public function Main($description, $button=false)

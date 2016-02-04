@@ -5,7 +5,7 @@ if(!defined('DATALIFEENGINE'))
 {
   die("Hacking attempt!");
 }
-$licence = /*lic*/'.'/*/lic*/;
+
 
 if (!function_exists('array_map_recursive'))
 {
@@ -532,15 +532,6 @@ else
     }
 }
 
-
-if (!preg_match("#" . $licence . "#i", $_SERVER['HTTP_HOST']) && 
-    !preg_match('#localhost#', $_SERVER['HTTP_HOST']) &&
-    strpos($_SERVER['HTTP_HOST'], $_SERVER['SERVER_ADDR']) === false) 
-{
-
-	dle_vb_msg("error", $dle_vb_lang['error_lic'], $dle_vb_lang['lic_text']);
-	exit; 
-}
  
 function makeDropDown($options, $name, $selected)
 {
